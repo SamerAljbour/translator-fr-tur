@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: tolba-translate
+    runtime: python
+    plan: free
+    buildCommand: bash scripts/build.sh
+    startCommand: gunicorn --bind 0.0.0.0:$PORT --workers 1 --threads 2 --timeout 180 --access-logfile - --error-logfile - 'app:create_translation_app()'
+    healthCheckPath: /health
+    envVars:
+      - key: ARGOS_PACKAGES_DIR
+        value: .argos-packages
+      - key: XDG_DATA_HOME
+        value: .argos-data
+      - key: XDG_CACHE_HOME
+        value: .argos-cache
+      - key: XDG_CONFIG_HOME
+        value: .argos-config
+      - key: ARGOS_DEVICE_TYPE
+        value: cpu
+      - key: ARGOS_CHUNK_TYPE
+        value: MINISBD
+      - key: TRANSLATION_CHAR_LIMIT
+        value: "5000"
+      - key: TRANSLATION_API_KEY
+        sync: false

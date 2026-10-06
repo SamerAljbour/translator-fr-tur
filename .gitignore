@@ -1,0 +1,8 @@
+__pycache__/
+*.py[cod]
+.venv/
+.argos-packages/
+.argos-data/
+.argos-cache/
+.argos-config/
+.minisbd/
